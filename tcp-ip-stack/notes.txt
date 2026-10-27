@@ -1,0 +1,26 @@
+TUN/TAP - virtual network device made by Linux to interact with network stack
+TUN - simulates a layer 3 device (IP packets)
+TAP - simulates a layer 2 device (Ethernet frames)
+
+fd - file descriptor - think of it as a ticket to an actual process
+struct ifreq - you can think of it like a datatype with a bunch of attributes
+    preassigned by C, 
+        we use the ifr_flags parameter to set different flags 
+        The flags in ifr_flags
+
+        These are the bits you OR together (i.e. IFF_TUN | IFF_UP etc.):
+
+        IFF_UP: interface is administratively up
+        IFF_RUNNING: resources allocated, link is operational
+        IFF_BROADCAST, IFF_MULTICAST, IFF_LOOPBACK, IFF_POINTOPOINT: capability/type bits
+        IFF_PROMISC: promiscuous mode (accept all frames, as used by packet sniffers)
+
+        Plus the TUN/TAP-specific ones, which is probably why you're looking at this:
+
+        IFF_TUN: create a layer 3 device (IP packets)
+        IFF_TAP: create a layer 2 device (Ethernet frames)
+        IFF_NO_PI: don't prepend the 4-byte "packet information" header to each packet
+        IFF_MULTI_QUEUE: allow multiple queues for parallelism
+
+ethernet frame - envelope with specific sections for specific information
+    Preamble (helps mark beginning of frame) - SFD - Destination MAC address - Source MAC - Type (indicates protocol type) - Payload - FCS (detects corruption in transit)
